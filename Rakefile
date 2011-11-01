@@ -4,7 +4,7 @@ task :deploy do
     sed -i -e "s!@@VERSION@@!$(git describe --always --dirty)!g" $(
       for i in $(git ls-files)
       do
-        test -f "$i" && echo "$i"
+        test -f "$i" && ! test -h "$i" && echo "$i"
       done
     )
 END
