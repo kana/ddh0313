@@ -1,0 +1,84 @@
+!!! XML
+!!! 1.1
+%html(xmlns='http://www.w3.org/1999/xhtml' xml:lang='en')
+  %head
+    %title ddh0313
+    %link(rel='stylesheet' href='/stylesheets/twitter-bootstrap.css')
+    %link(rel='stylesheet' href='/stylesheets/custom.css')
+    %link(rel='shortcut icon' href='/images/icon-16x16.png' type='image/png')
+  %body(class='#{signed_in? ? "signed-in" : "not-signed-in"}')
+    .topbar
+      .topbar-inner
+        .container
+          %h1
+            %a.brand(href='/') ddh0313
+          %ul.nav
+            %li.active
+              %a(href='/') Home
+          %ul.nav.secondary-nav
+            %li.for-not-signed-in-users
+              %a(href='/sign_in') Sign in
+            %li.for-signed-in-users
+              %a(href='/sign_out') Sign out
+
+    #body
+      .container
+        .row#console
+          .span16
+            %form(action='__dummy__')
+              .row
+                .span8
+                  %label(for='status') What's happening?
+              .row
+                .span8
+                  %input.span8#status(name='status' type='text' value='')
+              .row
+                .span8
+                  %span.pull-right
+                    %span#character-count 140
+                    %input.btn.primary(type='submit' value='Tweet')
+        .row#columns
+          .span16
+            .row
+              .span8
+                %h2 Main
+                .row
+                  .span8
+                    .tweet
+                      hi
+                .row
+                  .span8
+                    .tweet
+                      hey
+              .span8
+                %h2 Mentions
+                .row
+                  .span8
+                    .tweet
+                      hi
+                .row
+                  .span8
+                    .tweet
+                      hey
+
+    #footer
+      .container
+        .row
+          .span8
+            %address
+              ddh0313 @@VERSION@@
+              &#x2014;
+              Copyright &copy; 2011 
+              %a(href='http://whileimautomaton.net/') Kana Natsuno
+              (
+              %a(href='http://twitter.com/kana1')> @kana1
+              )
+          .span8
+            .pull-right
+              %a(href='https://github.com/kana/ddh0313')
+                Watch changes
+              &#x2014;
+              %a(href='https://github.com/kana/ddh0313/issues')
+                Report issues
+
+-# __END__
