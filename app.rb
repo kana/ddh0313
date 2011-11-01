@@ -134,6 +134,10 @@ class App < Sinatra::Application
     ENV['TWITTER_OAUTH_CONSUMER_SECRET'] ||
       halt(500, 'consumer_secret is not set')
   end
+
+  def signed_in?
+    session[:access_token_token] and session[:access_token_secret]
+  end
 end
 
 
