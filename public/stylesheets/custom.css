@@ -1,0 +1,52 @@
+/* Application-specific stylesheet */
+
+
+
+
+/* "position: fixed" creates invisible areas for users who tend to scroll
+ * documents by Page Up, Page Down and other operations.
+ */
+.topbar {position: static;}
+
+/* Twitter Bootstrap seems to assumes that the most left element in .topbar is
+ * h3 or (a).brand.  But h1 is more proper element for this application.
+ */
+.topbar h1 {margin-bottom: 0;}
+
+
+
+
+html, body {background-color: #eee;}
+#body {background-color: #fff;}
+
+#body {padding-top: 0.8em;}
+
+#body {padding-bottom: 1.44em;}
+#footer {padding-top: 1.44em; border-top: thin solid #e5e5e5;}
+
+
+
+
+.signed-in .for-not-signed-in-users,
+.not-signed-in .for-signed-in-users {display: none;}
+
+
+
+
+label[for="status"]
+{
+  color: #666;
+  font-size: 144%;
+  line-height: 100%;
+  width: auto;
+}
+#status
+{
+  margin-top: 1ex;
+  margin-bottom: 1ex;
+}
+
+
+
+
+/* __END__ */
