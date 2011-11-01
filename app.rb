@@ -10,7 +10,7 @@ class App < Sinatra::Application
   disable :logging
   enable :sessions
 
-  before %r{^(?!/(sign_in|sign_out)$)} do
+  before %r{^(?!(/sign_in|sign_out)$)} do
     s = session
 
     if not (s[:request_token_token] and s[:request_token_secret]) then
@@ -133,7 +133,7 @@ class App < Sinatra::Application
     if request.path_info.start_with? '/api'
       halt 403
     else
-      redirect to('/about')
+      redirect to('/sign_in')
     end
   end
 end
