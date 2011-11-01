@@ -49,4 +49,30 @@ label[for="status"]
 
 
 
+.tweet
+{
+  border-top: thin #e5e5e5 solid;
+  padding: 1ex 1ex;
+}
+
+.tweet.mention {background-color: #eef;}
+.tweet.mine {background-color: #efe;}
+
+.tweet > .screen_name
+{
+  font-weight: bolder;
+  color: inherit;
+}
+.tweet .text .screen_name {}
+.tweet .text .url {}
+.tweet .text .hashtag {}
+.tweet .posted_at
+{
+  white-space: nowrap;
+  color: #777;
+}
+
+
+
+
 /* __END__ */
