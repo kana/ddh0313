@@ -7,35 +7,41 @@ require 'sinatra'
 
 
 class App < Sinatra::Application
+  # The scenario to sign in:
+  #
+  # (1) Visit / (manual).
+  # (2) Visit /sign_in (manual).
+  # (3) Authorize this appliation at Twitter.
+  # (4) Visit /after_signed_in (automatically redirected).
+  # (5) Visit / (automatically redirected).
+
   disable :logging
   enable :sessions
 
-  before %r{^(?!(/sign_in|sign_out)$)} do
-    s = session
+  get '/' do
+    haml :index
+  end
 
-    if not (s[:request_token_token] and s[:request_token_secret]) then
-      deny_unauthorized_access
-    end
-
-    if not (s[:access_token_token] and s[:access_token_secret]) then
-      begin
-        request_token = OAuth::RequestToken.new(
-          consumer,
-          s[:request_token_token],
-          s[:request_token_secret],
-        )
-        access_token = request_token.get_access_token
-        s[:access_token_token] = access_token.token
-        s[:access_token_secret] = access_token.secret
-        redirect to('/')
-      rescue OAuth::Unauthorized
-        deny_unauthorized_access
-      end
+  get '/after_signed_in' do
+    halt 500, 'Request token is not set.' unless session[:request_token_token]
+    halt 500, 'Request token is not set.' unless session[:request_token_secret]
+    begin
+      request_token = OAuth::RequestToken.new(
+        consumer,
+        session[:request_token_token],
+        session[:request_token_secret],
+      )
+      access_token = request_token.get_access_token
+      session[:access_token_token] = access_token.token
+      session[:access_token_secret] = access_token.secret
+      redirect to('/')
+    rescue OAuth::Unauthorized
+      halt 500, 'Failed to authorize.  Please retry.'
     end
   end
 
-  get '/' do
-    haml :index
+  before %r{^/api/} do
+    halt 403, 'Authorization is required.' unless signed_in?
   end
 
   get '/api/:version/*.:format' do |version, api_name, format|
@@ -108,7 +114,7 @@ class App < Sinatra::Application
   end
 
   def callback_url
-    url('/')
+    url('/after_signed_in')
   end
 
   def consumer
@@ -127,14 +133,6 @@ class App < Sinatra::Application
   def consumer_secret
     ENV['TWITTER_OAUTH_CONSUMER_SECRET'] ||
       halt(500, 'consumer_secret is not set')
-  end
-
-  def deny_unauthorized_access
-    if request.path_info.start_with? '/api'
-      halt 403
-    else
-      redirect to('/sign_in')
-    end
   end
 end
 
