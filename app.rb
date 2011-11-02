@@ -108,7 +108,13 @@ class App < Sinatra::Application
     )
     [
       response.code.to_i,
-      response.header.to_hash.keep_if {|k, _| k.downcase != 'status'},
+      Hash[
+        response.header.
+        to_hash.
+        to_a.
+        select {|(k, _)| k.downcase != 'status'}.
+        map {|_, v| v[0]}
+      ],
       response.body
     ]
   end
