@@ -9,9 +9,10 @@
     %script(type='text/javascript' src='/javascripts/jquery.js')
     %script(type='text/javascript' src='/javascripts/bootstrap-twipsy.js')
     %script(type='text/javascript' src='/javascripts/bootstrap-popover.js')
+    %script(type='text/javascript' src='/javascripts/bootstrap-dropdown.js')
     %script(type='text/javascript' src='/javascripts/app.js')
   %body(class='#{signed_in? ? "signed-in" : "not-signed-in"}')
-    .topbar
+    .topbar(data-dropdown='enabled')
       .topbar-inner
         .container
           %h1
@@ -22,10 +23,11 @@
           %ul.nav.secondary-nav
             %li.for-not-signed-in-users#the-sign-in-menu(title='Welcome!' data-content='ddh0313 is an Web-based Twitter client.  Please sign in with your Twitter account to use ddh0313.')
               %a(href='/sign_in') Sign in
-            %li.for-signed-in-users
-              %a(href='http://twitter.com/kana1') kana1
-            %li.for-signed-in-users
-              %a(href='/sign_out') Sign out
+            %li.for-signed-in-users.dropdown
+              %a.dropdown-toggle(href='http://twitter.com/kana1') kana1
+              %ul.dropdown-menu
+                %li
+                  %a(href='/sign_out') Sign out
 
     #body
       .container
