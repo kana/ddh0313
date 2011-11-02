@@ -7,6 +7,8 @@
     %link(rel='stylesheet' href='/stylesheets/custom.css')
     %link(rel='shortcut icon' href='/images/icon-16x16.png' type='image/png')
     %script(type='text/javascript' src='/javascripts/jquery.js')
+    %script(type='text/javascript' src='/javascripts/bootstrap-twipsy.js')
+    %script(type='text/javascript' src='/javascripts/bootstrap-popover.js')
     %script(type='text/javascript' src='/javascripts/app.js')
   %body(class='#{signed_in? ? "signed-in" : "not-signed-in"}')
     .topbar
@@ -18,7 +20,7 @@
             %li.active
               %a(href='/') Home
           %ul.nav.secondary-nav
-            %li.for-not-signed-in-users
+            %li.for-not-signed-in-users#the-sign-in-menu(title='Welcome!' data-content='ddh0313 is an Web-based Twitter client.  Please sign in with your Twitter account to use ddh0313.')
               %a(href='/sign_in') Sign in
             %li.for-signed-in-users
               %a(href='/sign_out') Sign out
