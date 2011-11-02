@@ -5,6 +5,13 @@ $(document).ready(function () {
     placement: 'below',
     trigger: 'manual'
   }).popover('show');
+
+  var update_character_count = function () {
+    $('#character-count').text(140 - $(this).val().length);  // FIXME
+  };
+  $('#status')
+    .keydown(update_character_count)
+    .keyup(update_character_count);
 });
 
 // __END__  {{{1
