@@ -82,13 +82,14 @@ $(document).ready(function () {
       $('#tweet-form #status').twipsy('hide');
     };
     indicateRequestingStatus();
-    $.post(
-      '/api/1/statuses/update.json',
-      {
+    $.ajax({
+      url: '/api/1/statuses/update.json',
+      type: 'POST',
+      dataType: 'json',
+      data: {
         status: $('#status').val()
-      },
-      'json'
-    )
+      }
+    })
     .done(function (data) {
       if (data.error == null) {
         alert(data);  // FIXME: Update view.
