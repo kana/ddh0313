@@ -27,8 +27,8 @@ html, body {background-color: #eee;}
 
 
 
-.signed-in .for-not-signed-in-users,
-.not-signed-in .for-signed-in-users {display: none;}
+#signed-in .for-not-signed-in-users,
+#not-signed-in .for-signed-in-users {display: none;}
 
 
 
