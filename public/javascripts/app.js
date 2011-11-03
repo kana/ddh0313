@@ -85,20 +85,22 @@
     });
   };
 
-  var mainTimelineSinceId = '1';
-  var updateMainTimeline = function () {
+  var sinceIdTable = {
+    '/api/1/statuses/user_timeline.json': '1'
+  };
+  var updateTimeline = function (apiUrl, columnId, additionalTweetClass) {
     var indicateRequestingStatus = function () {
-      $('#main-column').twipsy('show');
+      $('#' + columnId).twipsy('show');
     };
     var restoreRequestingStatus = function () {
-      $('#main-column').twipsy('hide');
+      $('#' + columnId).twipsy('hide');
     };
     indicateRequestingStatus();
     callTwitterApi(
-      '/api/1/statuses/user_timeline.json',
+      apiUrl,
       'GET',
       {
-        since_id: mainTimelineSinceId,
+        since_id: sinceIdTable[apiUrl],
         count: '20'
       },
       function (data) {
@@ -109,7 +111,7 @@
         var ids = $.map(data, function (tweet) {return tweet.id_str;});
         ids.sort();
         if (1 <= ids.length)
-          mainTimelineSinceId = ids[ids.length - 1];
+          sinceIdTable[apiUrl] = ids[ids.length - 1];
         $.each(ids, function (_, id) {
           var tweet = tweetTable[id];
           var d = {
@@ -118,7 +120,7 @@
             postedAt: tweet.created_at,
             id: tweet.id_str
           };
-          $('#main-column .tweets').prepend(
+          $('#' + columnId + ' .tweets').prepend(
             $(
               $('#tweet-template').html().replace(
                 /{{([^{}]+)}}/g,
@@ -126,7 +128,7 @@
                   return d[key];
                 }
               )
-            ).addClass('mine')
+            ).addClass(additionalTweetClass)
           );
         });
       },
@@ -137,6 +139,13 @@
       function () {
         restoreRequestingStatus();
       }
+    );
+  };
+  var updateAllTimelines = function () {
+    updateTimeline(
+      '/api/1/statuses/user_timeline.json',
+      'main-column',
+      'mine'
     );
   };
 
@@ -155,7 +164,7 @@
 
     $('#tweet-form').submit(function () {
       if ($('#status').val() == '') {
-        updateMainTimeline();
+        updateAllTimelines();
       } else {
         var indicateRequestingStatus = function () {
           $('#tweet-form :input').disable();
@@ -175,7 +184,7 @@
             status: $('#status').val()
           },
           function (data) {
-            updateMainTimeline();  // To show the last posted tweet.
+            updateAllTimelines();  // To show the last posted tweet.
             $('#status').val('');
           },
           function (data) {
