@@ -132,7 +132,12 @@
                   return d[key];
                 }
               )
-            ).addClass(additionalTweetClass).fadeIn()
+            )
+            .addClass(additionalTweetClass)
+            .find('a')
+              .attr('target', '_blank')
+            .end()
+            .fadeIn()
           );
         });
       },
