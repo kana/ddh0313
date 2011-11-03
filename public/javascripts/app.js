@@ -63,6 +63,7 @@ $(document).ready(function () {
   $('#columns .tweets').empty();  // Remove dummy content.
 
   $('.not-signed-in #the-sign-in-menu').popover('show');
+  $('.not-signed-in #tweet-form :input').disable();
 
   var updateCharacterCount = function () {
     $('#character-count').text(140 - $(this).val().length);  // FIXME
@@ -71,7 +72,6 @@ $(document).ready(function () {
     .keydown(updateCharacterCount)
     .keyup(updateCharacterCount);
 
-  $('.not-signed-in #tweet-form :input').disable();
   $('#tweet-form').submit(function () {
     var indicateRequestingStatus = function () {
       $('#tweet-form :input').disable();
