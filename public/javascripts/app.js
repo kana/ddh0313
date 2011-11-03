@@ -1,4 +1,4 @@
-(function ($) {
+(function ($, twttr) {
   $.fn.enable = function () {
     return this.removeAttr('disabled');
   };
@@ -116,7 +116,7 @@
           var tweet = tweetTable[id];
           var d = {
             screenName: tweet.user.screen_name,
-            text: tweet.text,
+            text: twttr.txt.autoLink(tweet.text),
             postedAt: tweet.created_at,
             id: tweet.id_str
           };
@@ -229,7 +229,7 @@
       return false;
     });
   });
-})(jQuery);
+})(jQuery, twttr);
 
 // __END__  {{{1
 // vim: expandtab shiftwidth=2 softtabstop=2
