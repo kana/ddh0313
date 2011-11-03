@@ -58,6 +58,33 @@
 
 
 
+  var callTwitterApi = function (url, method, data, done, fail, always) {
+    $.ajax({
+      url: url,
+      type: method,
+      dataType: 'json',
+      data: $.extend({suppress_response_codes: '1'}, data),
+    })
+    .done(function (data) {
+      if (data.error == null)
+        done(data);
+      else
+        fail(data);
+    })
+    .fail(function (_jqXHR, textStatus, errorThrown) {
+      fail({
+        error: 'Failed to connect to Twitter (' +
+               textStatus +
+               ' / ' +
+               errorThrown +
+               ').'
+      });
+    })
+    .always(function (_jqXHR, _textStatus) {
+      always();
+    });
+  };
+
   $(document).ready(function () {
     $('#columns .tweets').empty();  // Remove dummy content.
 
