@@ -160,6 +160,31 @@
     $('#not-signed-in #the-sign-in-menu').popover('show');
     $('#not-signed-in #tweet-form :input').disable();
 
+    $('#signed-in-user').hide();
+    callTwitterApi(
+      '/api/1/account/verify_credentials.json',
+      'GET',
+      {skip_status: 't'},
+      function (user) {
+        var $n = $('#signed-in-user').parent();
+        $n.html(
+          $n.html().replace(
+            /{{([^{}]+)}}/g,
+            function (_, key) {
+              return user[key];
+            }
+          )
+        );
+      },
+      function (data) {
+        // FIXME: Alert gracefully.
+        alert(data.error);
+      },
+      function () {
+        $('#signed-in-user').fadeIn();
+      }
+    );
+
     var updateCharacterCount = function () {
       $('#character-count').text(140 - $(this).val().length);  // FIXME
     };

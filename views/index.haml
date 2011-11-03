@@ -24,7 +24,7 @@
             %li.for-not-signed-in-users#the-sign-in-menu(data-popover='enabled' data-title='Welcome!' data-content='ddh0313 is an Web-based Twitter client.  Please sign in with your Twitter account to use ddh0313.' data-placement='below' data-trigger='manual')
               %a(href='/sign_in') Sign in
             %li.for-signed-in-users.dropdown
-              %a.dropdown-toggle(href='http://twitter.com/kana1') kana1
+              %a#signed-in-user.dropdown-toggle(href='http://twitter.com/{{screen_name}}') {{screen_name}}
               %ul.dropdown-menu
                 %li
                   %a(href='#settings') Settings
