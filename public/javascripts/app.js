@@ -15,27 +15,27 @@ $(document).ready(function () {
     trigger: 'manual'
   }).popover('show');
 
-  var update_character_count = function () {
+  var updateCharacterCount = function () {
     $('#character-count').text(140 - $(this).val().length);  // FIXME
   };
   $('#status')
-    .keydown(update_character_count)
-    .keyup(update_character_count);
+    .keydown(updateCharacterCount)
+    .keyup(updateCharacterCount);
 
   $('.not-signed-in #tweet-form :input').disable();
   $('#tweet-form').submit(function () {
-    var indicate_requesting_status = function () {
+    var indicateRequestingStatus = function () {
       $('#tweet-form :input').disable();
       $('#tweet-form #status').twipsy({
         placement: 'below',
         trigger: 'manual'
       }).twipsy('show');
     };
-    var restore_requesting_status = function () {
+    var restoreRequestingStatus = function () {
       $('#tweet-form :input').enable();
       $('#tweet-form #status').twipsy('hide');
     };
-    indicate_requesting_status();
+    indicateRequestingStatus();
     $.post(
       '/api/1/statuses/update.json',
       {
@@ -57,7 +57,7 @@ $(document).ready(function () {
       alert('Failed to tweet: ' + textStatus + ' / ' + errorThrown);
     })
     .complete(function (_jqXHR, _textStatus) {
-      restore_requesting_status();
+      restoreRequestingStatus();
     });
 
     return false;
