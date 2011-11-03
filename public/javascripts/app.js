@@ -75,10 +75,7 @@ $(document).ready(function () {
   $('#tweet-form').submit(function () {
     var indicateRequestingStatus = function () {
       $('#tweet-form :input').disable();
-      $('#tweet-form #status').twipsy({
-        placement: 'below',
-        trigger: 'manual'
-      }).twipsy('show');
+      $('#tweet-form #status').twipsy('show');
     };
     var restoreRequestingStatus = function () {
       $('#tweet-form :input').enable();
