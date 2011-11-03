@@ -154,36 +154,39 @@
       .keyup(updateCharacterCount);
 
     $('#tweet-form').submit(function () {
-      var indicateRequestingStatus = function () {
-        $('#tweet-form :input').disable();
-        $('#tweet-form #status').twipsy('show');
-      };
-      var restoreRequestingStatus = function () {
-        $('#tweet-form :input').enable();
-        $('#tweet-form #status').twipsy('hide');
-      };
+      if ($('#status').val() == '') {
+        updateMainTimeline();
+      } else {
+        var indicateRequestingStatus = function () {
+          $('#tweet-form :input').disable();
+          $('#tweet-form #status').twipsy('show');
+        };
+        var restoreRequestingStatus = function () {
+          $('#tweet-form :input').enable();
+          $('#tweet-form #status').twipsy('hide');
+        };
 
-      indicateRequestingStatus();
-      callTwitterApi(
-        '/api/1/statuses/update.json',
-        'POST',
-        {
-          suppress_response_codes: '1',
-          status: $('#status').val()
-        },
-        function (data) {
-          alert(data);  // FIXME: Update view.
-          $('#status').val('');
-        },
-        function (data) {
-          // FIXME: Alert gracefully.
-          alert(data.error);
-        },
-        function () {
-          restoreRequestingStatus();
-        }
-      );
-
+        indicateRequestingStatus();
+        callTwitterApi(
+          '/api/1/statuses/update.json',
+          'POST',
+          {
+            suppress_response_codes: '1',
+            status: $('#status').val()
+          },
+          function (data) {
+            alert(data);  // FIXME: Update view.
+            $('#status').val('');
+          },
+          function (data) {
+            // FIXME: Alert gracefully.
+            alert(data.error);
+          },
+          function () {
+            restoreRequestingStatus();
+          }
+        );
+      }
       return false;
     });
   });
