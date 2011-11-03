@@ -32,6 +32,30 @@ $(document).ready(function () {
   });
 });
 
+$(document).ready(function () {
+  var twipsyNormalOptions = [
+    'animate',
+    'delayIn',
+    'delayOut',
+    'fallback',
+    'html',
+    'live',
+    'offset',
+    'placement',
+    'trigger'
+  ];
+  $('[data-twipsy]').each(function () {
+    var $this = $(this);
+    var options = {
+      title: 'data-title'
+    };
+    $.each(twipsyNormalOptions, function (_, v) {
+      options[v] = $this.attr('data-' + v);
+    });
+    $this.twipsy(options);
+  });
+});
+
 
 
 
