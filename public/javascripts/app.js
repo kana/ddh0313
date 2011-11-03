@@ -26,9 +26,14 @@ $(document).ready(function () {
   $('#tweet-form').submit(function () {
     var indicate_requesting_status = function () {
       $('#tweet-form :input').disable();
+      $('#tweet-form #status').twipsy({
+        placement: 'below',
+        trigger: 'manual'
+      }).twipsy('show');
     };
     var restore_requesting_status = function () {
       $('#tweet-form :input').enable();
+      $('#tweet-form #status').twipsy('hide');
     };
     indicate_requesting_status();
     $.post(
