@@ -63,7 +63,7 @@ label[for="status"]
   font-weight: bolder;
   color: inherit;
 }
-.tweet .posted_at
+.tweet .posted-at
 {
   white-space: nowrap;
   color: #777;
