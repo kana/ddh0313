@@ -58,19 +58,20 @@ label[for="status"]
 .tweet.mention {background-color: #eef;}
 .tweet.mine {background-color: #efe;}
 
-.tweet > .screen_name
+.tweet > .username
 {
   font-weight: bolder;
   color: inherit;
 }
-.tweet .text .screen_name {}
-.tweet .text .url {}
-.tweet .text .hashtag {}
 .tweet .posted_at
 {
   white-space: nowrap;
   color: #777;
 }
+.tweet .text .hashtag {}
+.tweet .text .list-slug {}
+.tweet .text .tweet-url {}
+.tweet .text .username {}
 
 
 
