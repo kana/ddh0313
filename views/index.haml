@@ -50,7 +50,7 @@
         .row#columns
           .span16
             .row
-              .span8
+              #main-column.column.span8(data-twipsy='enabled' data-title='Fetching new tweets...' data-trigger='manual')
                 %h2 Main
                 .tweets
                   -# Tweet {{{
@@ -196,6 +196,13 @@
               &#x2014;
               %a(href='https://github.com/kana/ddh0313/issues')
                 Report issues
+
+    #internal.hide
+      #tweet-template
+        .tweet
+          %a.screen_name(href='http://twitter.com/{{screenName}}') {{screenName}}
+          %span.text {{text}}
+          %a.posted_at(href='http://twitter.com/{{screenName}}/statuses/{{id}}') {{postedAt}}
 
 -# __END__
 -# vim: foldmethod=marker

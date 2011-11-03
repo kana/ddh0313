@@ -85,6 +85,61 @@
     });
   };
 
+  var mainTimelineSinceId = '1';
+  var updateMainTimeline = function () {
+    var indicateRequestingStatus = function () {
+      $('#main-column').twipsy('show');
+    };
+    var restoreRequestingStatus = function () {
+      $('#main-column').twipsy('hide');
+    };
+    indicateRequestingStatus();
+    callTwitterApi(
+      '/api/1/statuses/user_timeline.json',
+      'GET',
+      {
+        since_id: mainTimelineSinceId,
+        count: '20'
+      },
+      function (data) {
+        var tweetTable = {};
+        $.each(data, function (_, tweet) {
+          tweetTable[tweet.id_str] = tweet;
+        });
+        var ids = $.map(data, function (tweet) {return tweet.id_str;});
+        ids.sort();
+        if (1 <= ids.length)
+          mainTimelineSinceId = ids[ids.length - 1];
+        $.each(ids, function (_, id) {
+          var tweet = tweetTable[id];
+          var d = {
+            screenName: tweet.user.screen_name,
+            text: tweet.text,
+            postedAt: tweet.created_at,
+            id: tweet.id_str
+          };
+          $('#main-column .tweets').prepend(
+            $(
+              $('#tweet-template').html().replace(
+                /{{([^{}]+)}}/g,
+                function (_, key) {
+                  return d[key];
+                }
+              )
+            ).addClass('mine')
+          );
+        });
+      },
+      function (data) {
+        // FIXME: Alert gracefully.
+        alert(data.error);
+      },
+      function () {
+        restoreRequestingStatus();
+      }
+    );
+  };
+
   $(document).ready(function () {
     $('#columns .tweets').empty();  // Remove dummy content.
 
