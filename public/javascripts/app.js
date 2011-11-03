@@ -201,6 +201,8 @@
           $('#signed-in-user').fadeIn();
         }
       );
+
+      updateAllTimelines();
     }
 
     var updateCharacterCount = function () {
