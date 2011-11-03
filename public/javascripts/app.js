@@ -8,6 +8,34 @@
 })(jQuery);
 
 $(document).ready(function () {
+  var popoverNormalOptions = [
+    'animate',
+    'delayIn',
+    'delayOut',
+    'fallback',
+    'html',
+    'live',
+    'offset',
+    'placement',
+    'trigger'
+  ];
+  $('[data-popover]').each(function () {
+    var $this = $(this);
+    var options = {
+      content: 'data-content',
+      title: 'data-title'
+    };
+    $.each(popoverNormalOptions, function (_, v) {
+      options[v] = $this.attr('data-' + v);
+    });
+    $this.popover(options);
+  });
+});
+
+
+
+
+$(document).ready(function () {
   $('#columns .tweets').empty();  // Remove dummy content.
 
   $('.not-signed-in #the-sign-in-menu').popover({
