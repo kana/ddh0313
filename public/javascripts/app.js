@@ -101,6 +101,7 @@
       'GET',
       {
         since_id: sinceIdTable[apiUrl],
+        include_entities: 't',
         count: '20'
       },
       function (data) {
@@ -116,7 +117,10 @@
           var tweet = tweetTable[id];
           var d = {
             screenName: tweet.user.screen_name,
-            text: twttr.txt.autoLink(tweet.text),
+            text: twttr.txt.autoLink(
+              tweet.text,
+              {urlEntities: tweet.entities.urls}
+            ),
             postedAt: tweet.created_at,
             id: tweet.id_str
           };
