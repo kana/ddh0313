@@ -128,7 +128,7 @@
                   return d[key];
                 }
               )
-            ).addClass(additionalTweetClass)
+            ).addClass(additionalTweetClass).fadeIn()
           );
         });
       },
