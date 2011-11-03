@@ -175,7 +175,7 @@
             status: $('#status').val()
           },
           function (data) {
-            alert(data);  // FIXME: Update view.
+            updateMainTimeline();  // To show the last posted tweet.
             $('#status').val('');
           },
           function (data) {
