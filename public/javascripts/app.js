@@ -89,7 +89,7 @@ $(document).ready(function () {
       },
       'json'
     )
-    .success(function (data) {
+    .done(function (data) {
       if (data.error == null) {
         alert(data);  // FIXME: Update view.
         $('#status').val('');
@@ -98,11 +98,11 @@ $(document).ready(function () {
         alert('Failed to tweet: ' + data.error);
       }
     })
-    .error(function (_jqXHR, textStatus, errorThrown) {
+    .fail(function (_jqXHR, textStatus, errorThrown) {
       // FIXME: Alert gracefully.
       alert('Failed to tweet: ' + textStatus + ' / ' + errorThrown);
     })
-    .complete(function (_jqXHR, _textStatus) {
+    .always(function (_jqXHR, _textStatus) {
       restoreRequestingStatus();
     });
 
