@@ -38,10 +38,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   $('#columns .tweets').empty();  // Remove dummy content.
 
-  $('.not-signed-in #the-sign-in-menu').popover({
-    placement: 'below',
-    trigger: 'manual'
-  }).popover('show');
+  $('.not-signed-in #the-sign-in-menu').popover('show');
 
   var updateCharacterCount = function () {
     $('#character-count').text(140 - $(this).val().length);  // FIXME
