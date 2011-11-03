@@ -87,6 +87,7 @@ $(document).ready(function () {
       type: 'POST',
       dataType: 'json',
       data: {
+        suppress_response_codes: '1',
         status: $('#status').val()
       }
     })
