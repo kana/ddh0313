@@ -150,18 +150,25 @@
       }
     );
   };
-  var updateAllTimelines = function () {
-    updateTimeline(
-      '/api/1/statuses/user_timeline.json',
-      'main-column',
-      'mine'
-    );
-    updateTimeline(
-      '/api/1/statuses/mentions.json',
-      'mentions-column',
-      'mention'
-    );
-  };
+  var updateAllTimelines = (function () {
+    var timer = null;
+    return function () {
+      if (timer)
+        clearTimeout(timer);
+      timer = setTimeout(updateAllTimelines, 5 * 60 * 1000);
+
+      updateTimeline(
+        '/api/1/statuses/user_timeline.json',
+        'main-column',
+        'mine'
+      );
+      updateTimeline(
+        '/api/1/statuses/mentions.json',
+        'mentions-column',
+        'mention'
+      );
+    };
+  })();
 
   $(document).ready(function () {
     $('#columns .tweets').empty();  // Remove dummy content.
