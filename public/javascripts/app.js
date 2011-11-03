@@ -107,32 +107,27 @@
         $('#tweet-form :input').enable();
         $('#tweet-form #status').twipsy('hide');
       };
+
       indicateRequestingStatus();
-      $.ajax({
-        url: '/api/1/statuses/update.json',
-        type: 'POST',
-        dataType: 'json',
-        data: {
+      callTwitterApi(
+        '/api/1/statuses/update.json',
+        'POST',
+        {
           suppress_response_codes: '1',
           status: $('#status').val()
-        }
-      })
-      .done(function (data) {
-        if (data.error == null) {
+        },
+        function (data) {
           alert(data);  // FIXME: Update view.
           $('#status').val('');
-        } else {
+        },
+        function (data) {
           // FIXME: Alert gracefully.
-          alert('Failed to tweet: ' + data.error);
+          alert(data.error);
+        },
+        function () {
+          restoreRequestingStatus();
         }
-      })
-      .fail(function (_jqXHR, textStatus, errorThrown) {
-        // FIXME: Alert gracefully.
-        alert('Failed to tweet: ' + textStatus + ' / ' + errorThrown);
-      })
-      .always(function (_jqXHR, _textStatus) {
-        restoreRequestingStatus();
-      });
+      );
 
       return false;
     });
