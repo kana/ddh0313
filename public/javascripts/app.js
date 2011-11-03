@@ -147,6 +147,11 @@
       'main-column',
       'mine'
     );
+    updateTimeline(
+      '/api/1/statuses/mentions.json',
+      'mentions-column',
+      'mention'
+    );
   };
 
   $(document).ready(function () {
